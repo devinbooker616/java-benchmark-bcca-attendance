@@ -19,8 +19,7 @@ public class App {
     public static Sheet getStudent() {
         System.out.print("What is your name: ");
         String name = sc.nextLine();
-        System.out.print("What day of the work week is it: ");
-        String day = sc.nextLine();
+        String day = validDay();
         System.out.print("What time did you arrive: ");
         String timeOfArrival = sc.nextLine();
         System.out.println(name + " has arrived on " + day + " at " + timeOfArrival);
@@ -47,6 +46,21 @@ public class App {
             return orders;
         } catch (IOException | ClassNotFoundException ex) {
             return new ArrayList<Sheet>();
+        }
+    }
+
+    public static String validDay() {
+        String[] validDays = new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+        while (true) {
+            System.out.print("What day of the work week is it: ");
+            String day = sc.nextLine();
+            boolean result = Arrays.stream(validDays).anyMatch(day::equals);
+            if (result) {
+                return day;
+            } else {
+                System.out.println("That's not a day in the work week");
+            }
+
         }
     }
 
