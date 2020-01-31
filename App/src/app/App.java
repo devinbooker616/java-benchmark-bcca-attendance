@@ -7,13 +7,36 @@ public class App {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
+        System.out.println("Are you a teacher or student [t/s]: ");
+        String teacherStudent = sc.nextLine();
         ArrayList<Sheet> attendanceSheet = loadStudents();
-        for (Sheet students : attendanceSheet) {
-            System.out.println(students.name + ", " + students.timeOfArrival + ", " + students.day);
+        if (teacherStudent.equals("s")) {
+            for (Sheet students : attendanceSheet) {
+                System.out.println(students.name + ", " + students.timeOfArrival + ", " + students.day);
+            }
+            Sheet studentInfo = getStudent();
+            attendanceSheet.add(studentInfo);
+            saveStudents(attendanceSheet);
+        } else {
+            System.out.println(
+                    "Since you are a teacher would you like to see all students are just the absent ones[All/Absent]: ");
+            String tardy = sc.nextLine();
+            if (tardy.equals("All")) {
+                for (Sheet students : attendanceSheet) {
+                    System.out.println(students.name + ", " + students.timeOfArrival + ", " + students.day);
+                }
+            } else if (tardy.equals("Absent")) {
+                for (Sheet students : attendanceSheet) {
+                    if (students.day.equals("Absent")) {
+                        System.out.println(students.name);
+                    } else {
+                        break;
+                    }
+                    System.out.println("For once in a blue moon everyone was here!");
+                }
+            }
         }
-        Sheet studentInfo = getStudent();
-        attendanceSheet.add(studentInfo);
-        saveStudents(attendanceSheet);
+
     }
 
     public static Sheet getStudent() {
@@ -50,7 +73,7 @@ public class App {
     }
 
     public static String validDay() {
-        String[] validDays = new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+        String[] validDays = new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Absent" };
         while (true) {
             System.out.print("What day of the work week is it: ");
             String day = sc.nextLine();
