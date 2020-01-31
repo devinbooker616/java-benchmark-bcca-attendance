@@ -9,8 +9,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         ArrayList<Sheet> attendanceSheet = loadStudents();
         for (Sheet students : attendanceSheet) {
-            System.out.println(students.day);
-            System.out.println(students.name + " " + students.timeOfArrival);
+            System.out.println(students.name + ", " + students.timeOfArrival + ", " + students.day);
         }
         Sheet studentInfo = getStudent();
         attendanceSheet.add(studentInfo);
@@ -35,7 +34,7 @@ public class App {
             os.writeObject(attend);
             os.close();
         } catch (IOException ex) {
-            System.out.println("Failed to save orders.");
+            System.out.println("Failed to save Students.");
         }
     }
 
